@@ -351,3 +351,7 @@ MigrationBackup/
 
 # VS Code Workspace
 .vscode/*.code-workspace
+
+# Java/Maven
+apachecameltest/target/
+

@@ -1,0 +1,81 @@
+---
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.1.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.1.1
+    container_name: kafka
+    ports:
+    # To learn about configuring Kafka for access across networks see
+    # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
+      - "8081:8081"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  # kafka:
+  #   image: landoop/fast-data-dev
+  #   container_name: kafka
+  #   environment:
+  #     ADV_HOST: 127.0.0.1         # Change to 192.168.99.100 if using Docker Toolbox
+  #     RUNTESTS: 0                 # Disable Running tests so the cluster starts faster
+  #     FORWARDLOGS: 0              # Disable running 5 file source connectors that bring application logs into Kafka topics
+  #     SAMPLEDATA: 0               # Do not create sea_vessel_position_reports, nyc_yellow_taxi_trip_data, reddit_posts topics with sample Avro records.
+  #   ports:
+  #     - 2181:2181                 # Zookeeper
+  #     - 3030:3030                 # Landoop UI
+  #     - 8081-8083:8081-8083       # REST Proxy, Schema Registry, Kafka Connect ports
+  #     - 9581-9585:9581-9585       # JMX Ports
+  #     - 9092:9092                 # Kafka Broker
+
+  # kafka:
+  #   image: landoop/fast-data-dev
+  #   container_name: kafka
+  #   ports:
+  #     - "2181:2181"
+  #     - "3030:3030"
+  #     - "3031:3031"
+  #     - "9092:9092"
+  #     - "8081:8081"
+  #     - "8082:8082"
+  #     - "8083:8083"
+  #   environment:
+  #     ADV_HOST: kafka
+  #     RUNTESTS: 0                 # Disable Running tests so the cluster starts faster
+  #     FORWARDLOGS: 0              # Disable running 5 file source connectors that bring application logs into Kafka topics
+  #     SAMPLEDATA: 0               # Do not create sea_vessel_position_reports, nyc_yellow_taxi_trip_data, reddit_posts topics with sample Avro records.
+
+  pulsar:
+    image: apachepulsar/pulsar:2.10.0
+    container_name: pulsar
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    depends_on: 
+      - kafka
+    command: [ "bin/pulsar", "standalone" ]
+
+  magic:
+    image: digitsy/kafka-magic
+    container_name: kafka-magic
+    ports:
+      - "8888:80"
+    depends_on: 
+      - kafka
+    environment:
+      KMAGIC_ALLOW_TOPIC_DELETE: "true"
+      KMAGIC_ALLOW_SCHEMA_DELETE: "true"
