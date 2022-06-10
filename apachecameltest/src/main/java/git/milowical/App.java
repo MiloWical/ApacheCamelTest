@@ -1,38 +1,24 @@
 package git.milowical;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.kafka.KafkaComponent;
-import org.apache.camel.component.kafka.KafkaConfiguration;
-import org.apache.camel.component.pulsar.PulsarComponent;
-import org.apache.camel.component.pulsar.PulsarConfiguration;
-import org.apache.camel.impl.*;
+import org.apache.camel.impl.DefaultCamelContext;
 
-/**
- * Hello world!
- *
- */
 public class App {
   public static void main(String[] args) {
-    // System.out.println( "Hello World!" );
+    
+    CamelRouteConfiguration camelRouteConfiguration = new CamelRouteConfiguration(args[0], args[1]);
 
     CamelContext context = new DefaultCamelContext();
 
     try {
-      // PulsarConfiguration pulsarConfig = new PulsarConfiguration();
-      // pulsarConfig.setServiceUrl("pulsar://localhost:6650/");
-      // // //pulsarConfig.setSubscriptionName("inbound-sub");
-      // PulsarComponent pulsar = new PulsarComponent(context);
-      // // pulsar.setConfiguration(pulsarConfig);
-      // context.addComponent("pulsar", pulsar);
-      // context.addRoutes(new HelloWorldRouter());
-      context.addRoutes(new KafkaWriterRouter());
-      context.addRoutes(new PulsarReaderRouter(context));
+      context.addRoutes(new KafkaWriterRouter(camelRouteConfiguration));
+      context.addRoutes(new PulsarReaderRouter(context, camelRouteConfiguration));
 
       context.start();
 
       System.in.read();
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       System.out.println(e);
       printStackTrace(e);
     }

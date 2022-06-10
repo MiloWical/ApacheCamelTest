@@ -1,18 +1,23 @@
 package git.milowical;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.kafka.KafkaConstants;
 
 public class KafkaWriterRouter extends RouteBuilder {
 
+  private String uri;
+
+  public KafkaWriterRouter(CamelRouteConfiguration camelRouteConfiguration)
+  {
+    uri = camelRouteConfiguration.getKafkaRoute();
+  }
+
   @Override
   public void configure() throws Exception {
-    // from("timer:trigger?period=1000")
-    // .setBody(constant("Message from Camel")) // Message to send
-    // .setHeader(KafkaConstants.KEY, constant("Camel")) // Key of the message
-    // .to("kafka:testTopic?brokers=localhost:9092");
 
-    from("kafka:testTopic?brokers=localhost:9092")
+    System.out.println("\t[KAFKA]=> Starting Kafka Router with URI: " + uri);
+
+    // kafka:testTopic?brokers=localhost:9092
+    from("kafka:" + uri)
         .log("Message received from Kafka : ${body}")
         .log("    on the topic ${headers[kafka.TOPIC]}")
         .log("    on the partition ${headers[kafka.PARTITION]}")
