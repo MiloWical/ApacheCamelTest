@@ -36,3 +36,13 @@ services:
     depends_on: 
       - kafka
     command: [ "bin/pulsar", "standalone" ]
+
+  camel:
+    image: apachecameltest
+    container_name: camel
+    depends_on:
+      - pulsar
+      - kafka
+    environment:
+      - PULSAR_ENDPOINT=persistent://host.docker.internal:6650/public/default/outbound-topic
+      - KAFKA_ENDPOINT=inbound-topic?brokers=host.docker.internal:9092
