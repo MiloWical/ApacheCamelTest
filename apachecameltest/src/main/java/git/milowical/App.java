@@ -9,7 +9,9 @@ import org.apache.camel.impl.DefaultCamelContext;
 public class App {
   public static void main(String[] args) {
 
-    CamelRouteConfiguration camelRouteConfiguration = new CamelRouteConfiguration(args[0], args[1]);
+    CamelRouteConfiguration camelRouteConfiguration = new CamelRouteConfiguration();
+    camelRouteConfiguration.setPulsarRoute(args[0]);
+    camelRouteConfiguration.setKafkaRoute(args[1]);
 
     CamelContext context = new DefaultCamelContext();
 

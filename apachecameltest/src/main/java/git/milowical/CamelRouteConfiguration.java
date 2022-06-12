@@ -4,17 +4,20 @@ public class CamelRouteConfiguration {
   
   private String pulsarRoute;
   private String kafkaRoute;
-  
 
-  public CamelRouteConfiguration(String pulsarRoute, String kafkaRoute)
+  public void setPulsarRoute(String pulsarRoute)
   {
     this.pulsarRoute = pulsarRoute;
-    this.kafkaRoute = kafkaRoute;
   }
 
   public String getPulsarRoute()
   {
     return pulsarRoute;
+  }
+
+  public void setKafkaRoute(String kafkaRoute)
+  {
+    this.kafkaRoute = kafkaRoute;
   }
 
   public String getKafkaRoute()
