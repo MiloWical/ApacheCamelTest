@@ -44,6 +44,7 @@ public class PulsarReaderRouter extends RouteBuilder {
       .log("    published at ${headers[publish_time]}")
       .log("    from the producer ${headers[producer_name]}")
       .setHeader(KafkaConstants.KEY, constant("Pulsar")) // Key of the message
+      .setBody(simple("<Pulsar Tag> ${body}")) 
       .to("kafka:" + kafkaUri);
   }
 
