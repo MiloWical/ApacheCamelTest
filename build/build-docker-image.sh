@@ -7,7 +7,7 @@ cd ..
 JAR_FILE="apachecameltest/target/apachecameltest-1.0-SNAPSHOT.jar"
 
 if [[ ! -f "$JAR_FILE" ]]; then
-    ./build-project.sh
+    ./build/build-project.sh
 fi
 
 echo
