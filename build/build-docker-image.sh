@@ -7,10 +7,7 @@ cd ..
 JAR_FILE="apachecameltest/target/apachecameltest-1.0-SNAPSHOT.jar"
 
 if [[ ! -f "$JAR_FILE" ]]; then
-    echo
-    echo "Please run build-project.sh to ensure the correct files exist for the Docker build process to succeed."
-    echo
-    exit
+    ./build-project.sh
 fi
 
 echo
