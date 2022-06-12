@@ -2,9 +2,7 @@
 
 CWD=$(pwd)
 
-cd ../apachecameltest/
-
-mvn clean install compile assembly:single
+./build-project.sh
 
 cd target/
 
