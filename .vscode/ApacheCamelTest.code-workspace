@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "interactive"
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Launch Current File",
+        "request": "launch",
+        "mainClass": "${file}"
+      },
+      {
+        "type": "java",
+        "name": "Launch App",
+        "request": "launch",
+        "mainClass": "git.milowical.App",
+        "projectName": "apachecameltest",
+        "args": [
+          "\"persistent://localhost:6650/public/default/outbound-topic\"",
+          "\"inbound-topic?brokers=localhost:9092\""
+        ]
+      }
+    ]
+  }
+}

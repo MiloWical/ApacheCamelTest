@@ -349,8 +349,9 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# VS Code Workspace
-.vscode/*.code-workspace
+# VS Code
+.vscode/*
+!.vscode/ApacheCamelTest.code-workspace
 
 # Java/Maven
 apachecameltest/target/
