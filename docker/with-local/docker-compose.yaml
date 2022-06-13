@@ -1,6 +1,8 @@
 ---
 version: '3'
 services:
+
+   # Zookeeper and Kafka config pulled from: https://developer.confluent.io/quickstart/kafka-docker/
   zookeeper:
     image: confluentinc/cp-zookeeper:7.1.1
     container_name: zookeeper
@@ -27,6 +29,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
+  # Pulsar config adapted from: https://pulsar.apache.org/docs/standalone-docker/#start-pulsar-in-docker
   pulsar:
     image: apachepulsar/pulsar:2.10.0
     container_name: pulsar
