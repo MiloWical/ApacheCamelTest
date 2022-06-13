@@ -89,7 +89,7 @@ In order to build and run the demo, you'll need the following software installed
 - [Apache Maven](https://maven.apache.org/download.cgi)
 - [Apache Pulsar](https://pulsar.apache.org/download/)
 
-If you're planning on using container integration, you'll also need some kind of container infrastructure. (This documentation assumes you're using Docker, but any container infrastructure will work.) The version of Java you install in your local machine may impact the base container image you're using when building the image to run. You may need to update the base image for the Dockerfile if your local Java build isn't compatible with the currently configured base image. 
+If you're planning on using container integration, you'll also need some kind of container infrastructure. (This documentation assumes you're using Docker, but any container infrastructure will work.) The version of Java you install in your local machine may impact the base container image you're using when building the image to run. You may need to update the base image for the Dockerfile if your local Java build isn't compatible with the currently configured runtime base image. 
 
 Make sure that Java and Maven are configured properly on your machine, including any necessary adjustments to the system path.
 
