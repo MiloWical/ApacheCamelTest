@@ -263,7 +263,7 @@ but instead get parsed like this:
 
 This results in 2 problems:
 
-1. The regex fails to match the string so `autoConfigurable` is `false`, resulting in all of the component configurations being `null`. That causes the automatic URI-based component injection to fail.
+1. The regex fails to match the string so `autoConfigurable` is `false`, resulting in all of the component configurations being `null`. That causes the automatic URI-based component injection to fail. (I.e., when you try to auto-configure the Pulsar component with the topic URI `persistent://localhost:6650/public/default/outbound-topic` it breaks because of the compound namespace `public/default`.)
 
 2. If it were to proceed, the parser "figures out" that there are too many match groups for the regex. It gets to the end of the string and backtracks, assigning groups 2-4 in a recursive manner. Since the `'/'` character _is_ a match for the `.+` pattern, it assigns that character to that match group at the root of the recursion tree incorrectly.
 
