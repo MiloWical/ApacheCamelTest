@@ -7,7 +7,16 @@ cd ..
 JAR_FILE="apachecameltest/target/apachecameltest-1.0-SNAPSHOT.jar"
 
 if [[ ! -f "$JAR_FILE" ]]; then
-    ./build/build-project.sh
+
+    echo
+    echo "apachecameltest-1.0-SNAPSHOT.jar does not exist. Building project..."
+    echo
+
+    cd build/
+
+    ./build-project.sh
+
+    cd ..
 fi
 
 echo
